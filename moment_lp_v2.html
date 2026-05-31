@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>moment｜逆転の料理術</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --paper: #f7f3ed;
+    --white: #ffffff;
+    --accent: #c8401a;
+    --accent-light: rgba(200,64,26,0.08);
+    --accent-mid: rgba(200,64,26,0.18);
+    --muted: #6b5f54;
+    --muted-light: #9a8f85;
+    --border: #e0d6cc;
+    --border-dark: #c8bdb3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── GLOBAL ─── */
+  .section-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    color: var(--accent);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .section-tag::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 120px;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--ink);
+    padding: 72px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-deco {
+    position: absolute;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 280px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.03);
+    right: -30px;
+    top: -40px;
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .hero-brand {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 36px;
+    text-transform: uppercase;
+  }
+
+  .hero-headline {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(34px, 5.5vw, 58px);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+    max-width: 700px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-headline-accent {
+    color: #e8835a;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    line-height: 2;
+    color: rgba(255,255,255,0.55);
+    max-width: 540px;
+    position: relative;
+    z-index: 2;
+    border-left: 2px solid rgba(200,64,26,0.5);
+    padding-left: 20px;
+  }
+
+  /* ─── PROBLEM ─── */
+  .section-problem {
+    padding: 80px 48px;
+    background: var(--white);
+  }
+
+  .problem-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .problem-card {
+    background: var(--white);
+    padding: 40px 32px;
+    position: relative;
+  }
+
+  .problem-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+  .problem-card:hover::after { width: 100%; }
+
+  .problem-num {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 56px;
+    font-weight: 800;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .problem-text {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--muted);
+  }
+
+  .problem-text strong { color: var(--ink); font-weight: 500; }
+
+  /* ─── SOLUTION ─── */
+  .section-solution {
+    padding: 80px 48px;
+    background: var(--paper);
+  }
+
+  .solution-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 48px;
+    margin-bottom: 48px;
+  }
+
+  .solution-lead {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .solution-desc {
+    font-size: 14px;
+    line-height: 2;
+    color: var(--muted);
+  }
+
+  .solution-result {
+    margin-top: 28px;
+    padding: 20px 24px;
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  .solution-result-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  /* dynamic headline copy target */
+  .js-headline-copy {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .benefit-card {
+    background: var(--white);
+    padding: 36px 28px;
+  }
+
+  .benefit-num {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .benefit-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .benefit-desc {
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--muted);
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .section-how {
+    padding: 80px 48px;
+    background: var(--ink);
+  }
+
+  .section-tag-dark {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    color: rgba(200,64,26,0.8);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 48px;
+  }
+  .section-tag-dark::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    max-width: 120px;
+  }
+
+  .how-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+  }
+
+  .how-step {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 28px;
+  }
+
+  .how-step-num {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .how-step-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  .how-step-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+
+  /* media placeholder */
+  .media-placeholder {
+    background: rgba(255,255,255,0.04);
+    border: 1px dashed rgba(255,255,255,0.12);
+    border-radius: 2px;
+    padding: 32px 20px;
+    text-align: center;
+    color: rgba(255,255,255,0.2);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .media-placeholder:hover {
+    border-color: rgba(200,64,26,0.4);
+    color: rgba(200,64,26,0.5);
+  }
+  .media-placeholder-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+
+  .how-advice {
+    margin-top: 48px;
+    padding: 28px 32px;
+    background: rgba(255,255,255,0.04);
+    border-left: 2px solid rgba(200,64,26,0.5);
+  }
+
+  .how-advice-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: rgba(200,64,26,0.7);
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .how-advice-text {
+    font-size: 13px;
+    line-height: 2;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ─── VOICE ─── */
+  .section-voice {
+    padding: 80px 48px;
+    background: var(--white);
+  }
+
+  .voice-card {
+    border: 1px solid var(--border);
+    padding: 36px 40px;
+    margin-bottom: 24px;
+  }
+
+  .voice-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .voice-avatar {
+    width: 40px; height: 40px;
+    background: var(--paper);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .voice-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .voice-text {
+    font-size: 14px;
+    line-height: 2;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  /* media placeholder light */
+  .media-placeholder-light {
+    background: var(--paper);
+    border: 1px dashed var(--border-dark);
+    border-radius: 2px;
+    padding: 28px 20px;
+    text-align: center;
+    color: var(--muted-light);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .media-placeholder-light:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .media-placeholder-light .media-placeholder-icon { color: var(--border-dark); }
+
+  /* ─── SURVEY ─── */
+  .section-survey {
+    padding: 80px 48px;
+    background: var(--paper);
+  }
+
+  .survey-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .survey-progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 40px;
+  }
+
+  .survey-progress-dot {
+    height: 3px;
+    flex: 1;
+    background: var(--border);
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+
+  .survey-progress-dot.active { background: var(--accent); }
+
+  .survey-q {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+
+  .survey-q.visible { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .survey-q-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: block;
+    font-weight: 500;
+  }
+
+  .survey-q-text {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.45;
+    margin-bottom: 36px;
+  }
+
+  .survey-price-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: #fff;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+
+  .survey-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .survey-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    color: var(--ink);
+    text-align: left;
+    width: 100%;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .survey-option:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .survey-option.selected {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    color: var(--ink);
+  }
+
+  .survey-option-indicator {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .survey-option.selected .survey-option-indicator {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-size: 11px;
+  }
+
+  /* offer screens */
+  .survey-offer {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+  .survey-offer.visible { display: block; }
+
+  .offer-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 40px;
+    text-align: center;
+  }
+
+  .offer-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    padding: 5px 14px;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .offer-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+
+  .offer-price {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--accent);
+    margin: 20px 0 8px;
+    line-height: 1;
+  }
+
+  .offer-price-note {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    line-height: 1.8;
+  }
+
+  .offer-price-original {
+    font-size: 13px;
+    color: var(--muted-light);
+    text-decoration: line-through;
+    margin-bottom: 4px;
+  }
+
+  .btn-apply {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+
+  .btn-apply:hover {
+    background: #b03515;
+    transform: translateY(-1px);
+  }
+
+  .offer-note {
+    font-size: 12px;
+    color: var(--muted-light);
+    margin-top: 16px;
+    line-height: 1.7;
+  }
+
+  /* ─── FOOTER ─── */
+  .lp-footer {
+    background: var(--ink);
+    padding: 36px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .lp-logo {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .lp-logo span { color: #e8835a; }
+
+  .lp-footer-note {
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.08em;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero { padding: 56px 24px 64px; }
+    .hero-deco { font-size: 160px; }
+    .section-problem, .section-solution, .section-how,
+    .section-voice, .section-survey { padding: 64px 24px; }
+    .problem-cards, .benefit-grid { grid-template-columns: 1fr; }
+    .how-steps { grid-template-columns: 1fr; gap: 28px; }
+    .solution-box { padding: 28px 24px; }
+    .lp-footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ① HERO -->
+<section class="hero">
+  <div class="hero-deco">逆</div>
+  <div class="hero-brand">Cookpad moment</div>
+  <h1 class="hero-headline" id="js-hero-headline">
+    安い食材が、最高の一皿に変わる<br>
+    <span class="hero-headline-accent">「逆転の料理術」</span>
+  </h1>
+  <p class="hero-sub" id="js-hero-sub">
+    本当はもっとおいしく作れるのにな〜とくすぶっている<br>
+    家庭料理の経験が豊富な人向けの【逆転の料理術】です。<br>
+    いつもの食材で定番料理を格上げできて、他の料理にも簡単に応用できる
+  </p>
+</section>
+
+<!-- ② PROBLEM -->
+<section class="section-problem">
+  <div class="section-tag">こんなことはありませんか</div>
+  <div class="problem-cards">
+    <div class="problem-card">
+      <div class="problem-num">01</div>
+      <p class="problem-text">いつもの食材で、<strong>もっとおいしく作りたい</strong></p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">02</div>
+      <p class="problem-text">レシピを見ながら作るけど、<strong>料理が作業になっていてマンネリを感じる</strong></p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">03</div>
+      <p class="problem-text"><strong>独学の限界を感じていて</strong>、どうすればいいかわかってない</p>
+    </div>
+  </div>
+</section>
+
+<!-- ③ SOLUTION -->
+<section class="section-solution">
+  <div class="section-tag">クックパッドのmomentができること</div>
+
+  <div class="solution-box">
+    <div class="solution-lead">momentは自宅型の「料理のパーソナルレッスン」</div>
+    <p class="solution-desc">
+      プロの料理人の秘密を学んだAIと手元カメラによって、<br>
+      あなたのレベル・目標に合わせて「一生モノの料理スキル」を手に入れられます。
+    </p>
+    <div class="solution-result">
+      <span class="solution-result-label">momentを利用すると</span>
+      <span class="js-headline-copy">安い食材が、最高の一皿に変わる「逆転の料理術」を実現できます</span>
+    </div>
+  </div>
+
+  <!-- ④ BENEFIT -->
+  <div class="benefit-grid">
+    <div class="benefit-card">
+      <span class="benefit-num">BENEFIT 01</span>
+      <div class="benefit-title">「なぜそうするのか？」がわかり<br>素材の味を引き出す方法がわかる</div>
+      <p class="benefit-desc">レシピの行間を読める力が身につき、どんな食材でも応用できる判断力が育ちます。</p>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-num">BENEFIT 02</span>
+      <div class="benefit-title">一度学んだ考え方は自由に応用でき<br>レパートリーが増えてマンネリ解消</div>
+      <p class="benefit-desc">「原理」を掴むと、定番料理が全く違う表情を見せはじめます。</p>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-num">BENEFIT 03</span>
+      <div class="benefit-title">足し算の料理から引き算の料理になり<br>料理にゆとりが生まれて楽しくなる</div>
+      <p class="benefit-desc">「安い食材でも驚くほどおいしく」という痛快な体験が、料理への向き合い方を変えます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ HOW IT WORKS -->
+<section class="section-how">
+  <div class="section-tag-dark">使い方</div>
+  <div class="how-steps">
+    <div class="how-step">
+      <span class="how-step-num">STEP 01</span>
+      <div class="how-step-title">いつも通り料理する</div>
+      <p class="how-step-desc">専用カメラが自動撮影して送信。特別な対応は一切不要です。</p>
+      <div class="media-placeholder">
+        <span class="media-placeholder-icon">🎬</span>
+        料理動画キャプチャ<br>（素材が揃い次第差し替え）
+      </div>
+    </div>
+    <div class="how-step">
+      <span class="how-step-num">STEP 02</span>
+      <div class="how-step-title">あなた専用のアドバイスが届く</div>
+      <p class="how-step-desc">プロの知見を学んだAIが、あなたの料理を見た上でアドバイスをくれます。</p>
+      <div class="media-placeholder">
+        <span class="media-placeholder-icon">💬</span>
+        アドバイス画面キャプチャ<br>（素材が揃い次第差し替え）
+      </div>
+    </div>
+    <div class="how-step">
+      <span class="how-step-num">STEP 03</span>
+      <div class="how-step-title">もう一度料理する</div>
+      <p class="how-step-desc">アドバイスをもとに料理を作る。1つの課題メニューにつき合計3回料理します。</p>
+    </div>
+  </div>
+
+  <div class="how-advice">
+    <span class="how-advice-label">アドバイスの例</span>
+    <p class="how-advice-text">
+      「ソースいらずで、ジューシーな肉の旨みが溢れるハンバーグ」を作るには、お肉を冷やした上でまずは塩とひき肉だけを、粘り気が出るまでこねる。これによって、「塩で作った『お肉のバリア』で美味しい脂を逃さず中に閉じ込めるから、旨みが詰まった肉汁爆弾になります。塩が風船のような壁を作り、その中で脂が極上のスープになるイメージです」
+    </p>
+  </div>
+</section>
+
+<!-- ⑥ VOICE -->
+<section class="section-voice">
+  <div class="section-tag">ユーザーの声</div>
+  <div class="voice-card">
+    <div class="voice-header">
+      <div class="voice-avatar">👩</div>
+      <div class="voice-name">iさん</div>
+    </div>
+    <p class="voice-text">
+      レシピを見ながら作るけど、「なぜそうするのか？」というレシピの行間がわからず家族の好みに合わせることが難しかったけど、momentを利用することで、食材の状態を見ながらどうやって判断するのか？がわかるようになり、どんな食材やメニューでも、自分の判断だけで家族の好みに合わせた料理を作れるようになり、買い物も楽しくなりました！
+    </p>
+    <div class="media-placeholder-light">
+      <span class="media-placeholder-icon">🎙️</span>
+      インタビュー動画 / 音声<br>（素材が揃い次第差し替え）
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ SURVEY -->
+<section class="section-survey" id="survey">
+  <div class="survey-wrap">
+    <div class="section-tag">アンケート</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:32px;line-height:1.9;">
+      以下の設問について、直感的に感じた気持ちをお答えください。<br>
+      ※いつでも任意のタイミングで止めることができます
+    </p>
+
+    <!-- progress -->
+    <div class="survey-progress" id="surveyProgress">
+      <div class="survey-progress-dot active" id="dot0"></div>
+      <div class="survey-progress-dot" id="dot1"></div>
+      <div class="survey-progress-dot" id="dot2"></div>
+    </div>
+
+    <!-- Q1 -->
+    <div class="survey-q visible" id="q1">
+      <span class="survey-q-label">設問 1 / 2</span>
+      <div class="survey-q-text">このサービスをどの程度使ってみたいですか？</div>
+      <div class="survey-options" id="q1-options">
+        <!-- options injected by JS -->
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="survey-q" id="q2">
+      <span class="survey-q-label">設問 2 / 2</span>
+      <div class="survey-q-text">このサービスが月額<span style="color:var(--accent);font-family:'Shippori Mincho',serif">9,800円</span>だとしたら、どの程度使ってみたいですか？</div>
+      <div class="survey-options" id="q2-options"></div>
+    </div>
+
+    <!-- OFFER A: 意欲高（今すぐ利用したい） -->
+    <div class="survey-offer" id="offerA">
+      <div class="offer-box">
+        <div class="offer-badge">期間限定 特別オファー</div>
+        <div class="offer-title">通常19,800円のカメラ代が<br>今なら特別に<span style="color:var(--accent)">無料</span>！</div>
+        <p style="font-size:13px;color:var(--muted);margin-top:8px;line-height:1.8;">送料も無料。まずはお試しで1ヶ月やってみませんか？</p>
+        <div class="offer-price">¥9,800<span style="font-size:18px;color:var(--muted)">/月</span></div>
+        <div class="offer-price-note">カメラ代（通常¥19,800）無料 ＋ 送料無料</div>
+        <button class="btn-apply" onclick="handleApply('A')">申し込む →</button>
+        <p class="offer-note">※ これは検証用のテストページです。実際の申し込みには繋がりません。</p>
+      </div>
+    </div>
+
+    <!-- OFFER B: 意欲低 -->
+    <div class="survey-offer" id="offerB">
+      <div class="offer-box">
+        <div class="offer-badge">期間限定 特別価格</div>
+        <div class="offer-title">初月だけ<span style="color:var(--accent)">お試し特別価格</span><br>まずは試してみませんか？</div>
+        <div class="offer-price-original">通常 ¥9,800/月</div>
+        <div class="offer-price">¥4,500<span style="font-size:18px;color:var(--muted)">/初月</span></div>
+        <div class="offer-price-note">期間限定キャンペーン。2ヶ月目以降は通常料金（¥9,800/月）になります。</div>
+        <button class="btn-apply" onclick="handleApply('B')">申し込む →</button>
+        <p class="offer-note">※ これは検証用のテストページです。実際の申し込みには繋がりません。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="lp-footer">
+  <div class="lp-logo">cook<span>pad</span> moment</div>
+  <div class="lp-footer-note">© 2025 Cookpad Inc. — Concept Validation</div>
+</footer>
+
+<script>
+// ── 選択肢定義 ──
+const OPTIONS = [
+  '今すぐ利用したい',
+  '今すぐ利用したいが、一度家族と相談したい',
+  '今すぐ利用したいが、ちゃんとやれるか一度考えたい',
+  '今すぐ利用したいが、金額の条件が合わない',
+  '今すぐ利用したいが、実施頻度の条件が合わない',
+  '今すぐ利用したいとまではいかない',
+  '全く利用したいと思わない',
+];
+
+// ── 選択肢レンダリング ──
+function renderOptions(containerId, onSelect) {
+  const container = document.getElementById(containerId);
+  OPTIONS.forEach((label, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'survey-option';
+    btn.innerHTML = `
+      <span class="survey-option-indicator" id="${containerId}-ind-${i}"></span>
+      <span>${label}</span>
+    `;
+    btn.addEventListener('click', () => {
+      // reset
+      container.querySelectorAll('.survey-option').forEach(b => b.classList.remove('selected'));
+      container.querySelectorAll('.survey-option-indicator').forEach(ind => ind.textContent = '');
+      // select
+      btn.classList.add('selected');
+      document.getElementById(`${containerId}-ind-${i}`).textContent = '✓';
+      // callback after short delay
+      setTimeout(() => onSelect(i, label), 420);
+    });
+    container.appendChild(btn);
+  });
+}
+
+// ── 進行管理 ──
+let q1Answer = null;
+
+function showQ2() {
+  document.getElementById('q1').classList.remove('visible');
+  document.getElementById('q2').classList.add('visible');
+  document.getElementById('dot1').classList.add('active');
+}
+
+function showOffer(answerIndex) {
+  document.getElementById('q2').classList.remove('visible');
+  document.getElementById('dot2').classList.add('active');
+
+  // 閾値: 「今すぐ利用したい」= index 0
+  if (answerIndex === 0) {
+    document.getElementById('offerA').classList.add('visible');
+  } else {
+    document.getElementById('offerB').classList.add('visible');
+  }
+}
+
+function handleApply(type) {
+  alert('ご回答ありがとうございました！\n（検証用ページのため、実際の申し込みには繋がりません）');
+}
+
+// ── ヘッドラインを③にコピー ──
+function copyHeadlineToBenefit() {
+  const headline = document.getElementById('js-hero-headline');
+  const sub = document.getElementById('js-hero-sub');
+  const target = document.querySelector('.js-headline-copy');
+  if (headline && target) {
+    const h = headline.innerText.replace(/\n/g, '').trim();
+    const s = sub ? sub.innerText.replace(/\n/g, '').trim() : '';
+    target.textContent = h + 'を実現できます';
+  }
+}
+
+// ── 初期化 ──
+renderOptions('q1-options', (i, label) => {
+  q1Answer = { index: i, label };
+  showQ2();
+});
+
+renderOptions('q2-options', (i, label) => {
+  showOffer(i);
+});
+
+copyHeadlineToBenefit();
+</script>
+</body>
+</html>
