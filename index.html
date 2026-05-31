@@ -1,79 +1,945 @@
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>moment｜逆転の料理術</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;900&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6f0;
+    --warm-white: #fff9f4;
+    --brown: #3d2b1f;
+    --brown-light: #6b4c3b;
+    --brown-muted: #9a7c6e;
+    --accent: #c04e2a;
+    --accent-warm: #e07a4f;
+    --accent-light: rgba(192,78,42,0.08);
+    --accent-mid: rgba(192,78,42,0.15);
+    --sage: #7a9e7e;
+    --sage-light: rgba(122,158,126,0.12);
+    --border: #e8ddd4;
+    --border-warm: #d4c4b8;
+    --shadow: rgba(61,43,31,0.08);
+  }
 
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    background: var(--cream);
+    color: var(--brown);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
 
-Cookpad moment
-安い食材が、最高の一皿に変わる
-「逆転の料理術」
-本当はもっとおいしく作れるのにな〜とくすぶっている 家庭料理の経験が豊富な人向けの【逆転の料理術】です。 いつもの食材で定番料理を格上げできて、他の料理にも簡単に応用できる
-￼
-いつもの食材が、ここまで変わる。
+  /* ── HERO ── */
+  .hero {
+    background: var(--brown);
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+  }
 
-こんなことはありませんか？
-あなたの料理への 「もどかしさ」、ありませんか？
-🛒
-悩み 01
-いつもの食材で、もっとおいしく作りたい
-📖
-悩み 02
-レシピを見ながら作るけど、料理が作業になっていてマンネリを感じる
-🤔
-悩み 03
-独学の限界を感じていて、どうすればいいかわからない
-クックパッドのMOMENTができること
-自宅が、あなただけの 料理教室になる
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 60%, rgba(192,78,42,0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 30%, rgba(224,122,79,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 100%, rgba(61,43,31,0.8) 0%, transparent 60%);
+    z-index: 1;
+  }
 
+  .hero-texture {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    z-index: 1;
+  }
 
-momentは自宅型の「料理のパーソナルレッスン」
-プロの料理人の秘密を学んだAIと手元カメラによって、 あなたのレベルに合わせて「一生モノの料理スキル」を手に入れられます。
-MOMENTを利用すると
-安い食材が、最高の一皿に変わる「逆転の料理術」を実現できます
-🔍
-BENEFIT 01
-「なぜそうするのか？」がわかり
-素材の味を引き出す方法がわかる
-レシピの行間を読める力が育ち、どんな食材にも応用できる判断力が身につきます。
-✨
-BENEFIT 02
-一度学んだ考え方は自由に応用でき
-レパートリーが増えてマンネリ解消
-「原理」を掴むと、定番料理が全く違う表情を見せはじめます。
-🌿
-BENEFIT 03
-足し算の料理から引き算の料理になり
-料理にゆとりが生まれて楽しくなる
-「安い食材でも驚くほどおいしく」という痛快な体験が、料理への向き合い方を変えます。
-MOMENTの使い方
-基本的にはいつも通りに 料理するだけ
-そのまま食卓に出すこともできます。特別な準備は一切不要です。
-1
+  .hero-inner {
+    position: relative; z-index: 2;
+    padding: 72px 40px 80px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
 
-いつも通り料理する
-いつも通りの料理の様子を専用カメラが自動撮影して送ります。特に対応は不要です。
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 36px;
+  }
 
-2
+  .hero-badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-warm);
+    animation: pulse 2s infinite;
+  }
 
-あなた専用のアドバイスが届く
-プロの知見を学んだAIが、あなたの料理を見た上でアドバイスをくれます。
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.5; transform:scale(1.3); }
+  }
 
-💬 アドバイスの例
-「ソースいらずで、ジューシーな肉の旨みが溢れるハンバーグ」を作るには、お肉を冷やした上でまずは塩とひき肉だけを、粘り気が出るまでこねる。これによって、「塩で作った『お肉のバリア』で美味しい脂を逃さず中に閉じ込めるから、旨みが詰まった肉汁爆弾になります。塩が風船のような壁を作り、その中で脂が極上のスープになるイメージです」
+  .hero-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(32px, 6vw, 60px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    margin-bottom: 12px;
+  }
 
-3
-もう一度料理する
-アドバイスをもとに料理を作ります。1つの課題メニューにつき合計3回料理して、確実にスキルが身につきます。
-ユーザーの声
-実際に使った方の 感想をお聞きください
-❝
-レシピを見ながら作るけど、「なぜそうするのか？」というレシピの行間がわからず家族の好みに合わせることが難しかった。でもmomentを利用することで、食材の状態を見ながらどうやって判断するのか？がわかるようになり、どんな食材やメニューでも、自分の判断だけで家族の好みに合わせた料理を作れるようになり、買い物も楽しくなりました！
-👩
-iさん
-🎙️ インタビュー動画 / 音声（素材が揃い次第差し替え）
-アンケート
-📝
-直感的に感じた気持ちで お答えください
-約1〜2分で完了します。いただいたご意見をサービス改善に活かします。
-⏱ 約1〜2分 アンケート回答はこちら
-→
-※ 外部サイト（Google フォーム）に移動します
-cookpad moment
-© 2025 Cookpad Inc.
+  .hero-title-accent {
+    color: var(--accent-warm);
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: clamp(14px, 2vw, 17px);
+    line-height: 2.1;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    margin: 24px auto 0;
+    padding: 20px 24px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+
+  /* ── SOLUTION IMAGE ── */
+  .hero-image-wrap {
+    margin: 40px 0 0;
+    border-radius: 12px;
+    overflow: hidden;
+    max-height: 340px;
+    position: relative;
+  }
+
+  .hero-image-wrap img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.85);
+  }
+
+  .hero-image-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(61,43,31,0.6) 0%, transparent 50%);
+    display: flex;
+    align-items: flex-end;
+    padding: 24px;
+  }
+
+  .hero-image-caption {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    font-style: italic;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── DIVIDER ── */
+  .wave-divider {
+    width: 100%;
+    line-height: 0;
+    background: var(--brown);
+  }
+  .wave-divider svg { display: block; width: 100%; }
+
+  /* ── PROBLEM ── */
+  .section-problem {
+    background: var(--warm-white);
+    padding: 80px 32px;
+  }
+
+  .section-center { max-width: 860px; margin: 0 auto; }
+
+  .section-eyebrow {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  .section-eyebrow::before, .section-eyebrow::after {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--border-warm);
+  }
+
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 900;
+    color: var(--brown);
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 48px;
+  }
+
+  .problem-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .problem-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+
+  .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+    border-radius: 16px 16px 0 0;
+  }
+
+  .problem-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px var(--shadow);
+  }
+
+  .problem-emoji {
+    font-size: 36px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .problem-num {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .problem-text {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--brown-light);
+    font-weight: 400;
+  }
+
+  .problem-text strong { color: var(--brown); font-weight: 500; }
+
+  /* ── SOLUTION ── */
+  .section-solution {
+    background: var(--cream);
+    padding: 80px 32px;
+  }
+
+  .solution-box {
+    background: linear-gradient(135deg, var(--brown) 0%, #5a3a28 100%);
+    border-radius: 20px;
+    padding: 52px 48px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 48px rgba(61,43,31,0.25);
+  }
+
+  .solution-box-deco {
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .solution-box-deco2 {
+    position: absolute;
+    bottom: -60px; left: -20px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(192,78,42,0.15);
+  }
+
+  .solution-lead {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    position: relative; z-index: 1;
+  }
+
+  .solution-desc {
+    font-size: 15px;
+    line-height: 2.1;
+    color: rgba(255,255,255,0.7);
+    position: relative; z-index: 1;
+  }
+
+  .solution-result {
+    margin-top: 28px;
+    padding: 20px 24px;
+    background: rgba(255,255,255,0.08);
+    border-left: 3px solid var(--accent-warm);
+    border-radius: 0 8px 8px 0;
+    position: relative; z-index: 1;
+  }
+
+  .solution-result-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent-warm);
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+    text-transform: uppercase;
+  }
+
+  .solution-result-text {
+    font-size: 16px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 400;
+    line-height: 1.8;
+  }
+
+  /* benefit */
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .benefit-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 24px;
+    box-shadow: 0 2px 12px var(--shadow);
+    transition: all 0.3s;
+  }
+
+  .benefit-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px var(--shadow); }
+
+  .benefit-icon {
+    width: 48px; height: 48px;
+    background: var(--accent-light);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .benefit-num {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: block;
+    text-transform: uppercase;
+  }
+
+  .benefit-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--brown);
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+
+  .benefit-desc {
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--brown-muted);
+  }
+
+  /* ── HOW IT WORKS ── */
+  .section-how {
+    background: var(--warm-white);
+    padding: 80px 32px;
+  }
+
+  .how-intro {
+    text-align: center;
+    font-size: 16px;
+    color: var(--brown-light);
+    line-height: 2;
+    margin-bottom: 56px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .how-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .how-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    position: relative;
+    padding-bottom: 48px;
+  }
+
+  .how-step:last-child { padding-bottom: 0; }
+
+  .how-step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .how-step-circle {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(192,78,42,0.3);
+  }
+
+  .how-step-line {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(to bottom, var(--accent-warm), var(--border));
+    margin: 8px 0;
+    min-height: 40px;
+  }
+
+  .how-step:last-child .how-step-line { display: none; }
+
+  .how-step-right { padding-top: 12px; }
+
+  .how-step-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--brown);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .how-step-desc {
+    font-size: 15px;
+    color: var(--brown-muted);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+
+  /* video */
+  .video-wrap {
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--brown);
+    box-shadow: 0 8px 32px var(--shadow);
+    margin-top: 4px;
+  }
+
+  .video-wrap video {
+    width: 100%;
+    display: block;
+    max-height: 400px;
+    object-fit: cover;
+  }
+
+  .how-advice {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 20px 0;
+    border-left: 4px solid var(--sage);
+  }
+
+  .how-advice-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--sage);
+    font-weight: 500;
+    margin-bottom: 12px;
+    display: block;
+    text-transform: uppercase;
+  }
+
+  .how-advice-text {
+    font-size: 14px;
+    line-height: 2.1;
+    color: var(--brown-light);
+    font-style: italic;
+  }
+
+  /* ── VOICE ── */
+  .section-voice {
+    background: var(--cream);
+    padding: 80px 32px;
+  }
+
+  .voice-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 20px var(--shadow);
+  }
+
+  .voice-quote-mark {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 72px;
+    color: var(--accent-light);
+    line-height: 1;
+    margin-bottom: -16px;
+    display: block;
+  }
+
+  .voice-text {
+    font-size: 16px;
+    line-height: 2.2;
+    color: var(--brown-light);
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+
+  .voice-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .voice-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-light), var(--sage-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    border: 2px solid var(--border-warm);
+  }
+
+  .voice-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--brown);
+  }
+
+  .voice-media {
+    margin-top: 24px;
+    background: var(--cream);
+    border: 1px dashed var(--border-warm);
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+    color: var(--brown-muted);
+    font-size: 13px;
+  }
+
+  /* ── SURVEY ── */
+  .section-survey {
+    background: linear-gradient(160deg, var(--warm-white) 0%, #fdeee6 100%);
+    padding: 80px 32px;
+  }
+
+  .survey-wrap { max-width: 600px; margin: 0 auto; }
+
+  .survey-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 48px 40px;
+    box-shadow: 0 8px 40px rgba(192,78,42,0.12);
+    border: 1px solid rgba(192,78,42,0.1);
+    text-align: center;
+  }
+
+  .survey-icon { font-size: 48px; margin-bottom: 20px; display: block; }
+
+  .survey-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(20px, 3vw, 26px);
+    font-weight: 900;
+    color: var(--brown);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .survey-desc {
+    font-size: 14px;
+    color: var(--brown-muted);
+    line-height: 1.9;
+    margin-bottom: 36px;
+  }
+
+  .survey-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--sage-light);
+    color: var(--sage);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 32px;
+    letter-spacing: 0.05em;
+  }
+
+  .btn-survey {
+    display: block;
+    width: 100%;
+    padding: 22px 32px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
+    color: #fff;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 6px 24px rgba(192,78,42,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .btn-survey:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(192,78,42,0.45);
+    background: linear-gradient(135deg, #b04020 0%, var(--accent) 100%);
+  }
+
+  .btn-survey-arrow {
+    font-size: 22px;
+    transition: transform 0.3s;
+  }
+
+  .btn-survey:hover .btn-survey-arrow { transform: translateX(4px); }
+
+  .survey-note {
+    font-size: 12px;
+    color: var(--brown-muted);
+    margin-top: 16px;
+    line-height: 1.8;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--brown);
+    padding: 40px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+  }
+
+  .footer-logo span { color: var(--accent-warm); }
+
+  .footer-note {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(24px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .hero-badge { animation: fadeUp 0.7s ease 0.1s both; }
+  .hero-title { animation: fadeUp 0.7s ease 0.25s both; }
+  .hero-sub { animation: fadeUp 0.7s ease 0.4s both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero-inner { padding: 56px 24px 64px; }
+    .section-problem, .section-solution, .section-how,
+    .section-voice, .section-survey { padding: 64px 20px; }
+    .problem-cards { grid-template-columns: 1fr; gap: 14px; }
+    .benefit-grid { grid-template-columns: 1fr; gap: 12px; }
+    .how-step { grid-template-columns: 56px 1fr; gap: 20px; }
+    .how-step-circle { width: 52px; height: 52px; font-size: 18px; }
+    .solution-box { padding: 36px 24px; }
+    .voice-card { padding: 28px 24px; }
+    .survey-card { padding: 36px 24px; }
+    .footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Cookpad moment
+    </div>
+    <h1 class="hero-title">
+      安い食材が、最高の一皿に変わる<br>
+      <span class="hero-title-accent">「逆転の料理術」</span>
+    </h1>
+    <p class="hero-sub">
+      本当はもっとおいしく作れるのにな〜とくすぶっている<br>
+      家庭料理の経験が豊富な人向けの【逆転の料理術】です。<br>
+      いつもの食材で定番料理を格上げできて、他の料理にも簡単に応用できる
+    </p>
+
+    <!-- コンセプトに合わせた料理イメージ -->
+    <div class="hero-image-wrap">
+      <img
+        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80&auto=format&fit=crop"
+        alt="家庭料理の様子"
+        onerror="this.style.display='none'"
+      >
+      <div class="hero-image-overlay">
+        <span class="hero-image-caption">いつもの食材が、ここまで変わる。</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 40" preserveAspectRatio="none" height="40">
+    <path d="M0,0 C360,40 1080,40 1440,0 L1440,0 L0,0 Z" fill="#3d2b1f"/>
+    <path d="M0,40 L1440,40 L1440,0 C1080,40 360,40 0,0 Z" fill="#faf6f0"/>
+  </svg>
+</div>
+
+<!-- PROBLEM -->
+<section class="section-problem">
+  <div class="section-center">
+    <div class="section-eyebrow">こんなことはありませんか？</div>
+    <h2 class="section-title">あなたの料理への<br>「もどかしさ」、ありませんか？</h2>
+    <div class="problem-cards">
+      <div class="problem-card">
+        <span class="problem-emoji">🛒</span>
+        <span class="problem-num">悩み 01</span>
+        <p class="problem-text">いつもの食材で、<strong>もっとおいしく作りたい</strong></p>
+      </div>
+      <div class="problem-card">
+        <span class="problem-emoji">📖</span>
+        <span class="problem-num">悩み 02</span>
+        <p class="problem-text">レシピを見ながら作るけど、<strong>料理が作業になっていてマンネリを感じる</strong></p>
+      </div>
+      <div class="problem-card">
+        <span class="problem-emoji">🤔</span>
+        <span class="problem-num">悩み 03</span>
+        <p class="problem-text"><strong>独学の限界を感じていて</strong>、どうすればいいかわからない</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="section-solution">
+  <div class="section-center">
+    <div class="section-eyebrow">クックパッドのmomentができること</div>
+    <h2 class="section-title">自宅が、あなただけの<br>料理教室になる</h2>
+
+    <div class="solution-box">
+      <div class="solution-box-deco"></div>
+      <div class="solution-box-deco2"></div>
+      <div class="solution-lead">momentは自宅型の「料理のパーソナルレッスン」</div>
+      <p class="solution-desc">
+        プロの料理人の秘密を学んだAIと手元カメラによって、<br>
+        あなたのレベルに合わせて「一生モノの料理スキル」を手に入れられます。
+      </p>
+      <div class="solution-result">
+        <span class="solution-result-label">momentを利用すると</span>
+        <span class="solution-result-text" id="js-headline-copy">
+          安い食材が、最高の一皿に変わる「逆転の料理術」を実現できます
+        </span>
+      </div>
+    </div>
+
+    <!-- BENEFIT -->
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">🔍</div>
+        <span class="benefit-num">Benefit 01</span>
+        <div class="benefit-title">「なぜそうするのか？」がわかり<br>素材の味を引き出す方法がわかる</div>
+        <p class="benefit-desc">レシピの行間を読める力が育ち、どんな食材にも応用できる判断力が身につきます。</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">✨</div>
+        <span class="benefit-num">Benefit 02</span>
+        <div class="benefit-title">一度学んだ考え方は自由に応用でき<br>レパートリーが増えてマンネリ解消</div>
+        <p class="benefit-desc">「原理」を掴むと、定番料理が全く違う表情を見せはじめます。</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🌿</div>
+        <span class="benefit-num">Benefit 03</span>
+        <div class="benefit-title">足し算の料理から引き算の料理になり<br>料理にゆとりが生まれて楽しくなる</div>
+        <p class="benefit-desc">「安い食材でも驚くほどおいしく」という痛快な体験が、料理への向き合い方を変えます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section-how">
+  <div class="section-center">
+    <div class="section-eyebrow">momentの使い方</div>
+    <h2 class="section-title">基本的にはいつも通りに<br>料理するだけ</h2>
+    <p class="how-intro">そのまま食卓に出すこともできます。特別な準備は一切不要です。</p>
+
+    <div class="how-steps">
+
+      <!-- STEP 1 -->
+      <div class="how-step">
+        <div class="how-step-left">
+          <div class="how-step-circle">1</div>
+          <div class="how-step-line"></div>
+        </div>
+        <div class="how-step-right">
+          <div class="how-step-title">いつも通り料理する</div>
+          <p class="how-step-desc">いつも通りの料理の様子を専用カメラが自動撮影して送ります。特に対応は不要です。</p>
+          <div class="video-wrap">
+            <video controls playsinline preload="metadata" poster="">
+              <source src="video1.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="how-step">
+        <div class="how-step-left">
+          <div class="how-step-circle">2</div>
+          <div class="how-step-line"></div>
+        </div>
+        <div class="how-step-right">
+          <div class="how-step-title">あなた専用のアドバイスが届く</div>
+          <p class="how-step-desc">プロの知見を学んだAIが、あなたの料理を見た上でアドバイスをくれます。</p>
+          <div class="video-wrap">
+            <video controls playsinline preload="metadata">
+              <source src="video1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="how-advice">
+            <span class="how-advice-label">💬 アドバイスの例</span>
+            <p class="how-advice-text">「ソースいらずで、ジューシーな肉の旨みが溢れるハンバーグ」を作るには、お肉を冷やした上でまずは塩とひき肉だけを、粘り気が出るまでこねる。これによって、「塩で作った『お肉のバリア』で美味しい脂を逃さず中に閉じ込めるから、旨みが詰まった肉汁爆弾になります。塩が風船のような壁を作り、その中で脂が極上のスープになるイメージです」</p>
+          </div>
+          <div class="video-wrap">
+            <video controls playsinline preload="metadata">
+              <source src="video2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="how-step">
+        <div class="how-step-left">
+          <div class="how-step-circle">3</div>
+        </div>
+        <div class="how-step-right">
+          <div class="how-step-title">もう一度料理する</div>
+          <p class="how-step-desc">アドバイスをもとに料理を作ります。1つの課題メニューにつき合計3回料理して、確実にスキルが身につきます。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section class="section-voice">
+  <div class="section-center">
+    <div class="section-eyebrow">ユーザーの声</div>
+    <h2 class="section-title">実際に使った方の<br>感想をお聞きください</h2>
+    <div class="voice-card">
+      <span class="voice-quote-mark">❝</span>
+      <p class="voice-text">
+        レシピを見ながら作るけど、「なぜそうするのか？」というレシピの行間がわからず家族の好みに合わせることが難しかった。でもmomentを利用することで、食材の状態を見ながらどうやって判断するのか？がわかるようになり、どんな食材やメニューでも、自分の判断だけで家族の好みに合わせた料理を作れるようになり、買い物も楽しくなりました！
+      </p>
+      <div class="voice-author">
+        <div class="voice-avatar">👩</div>
+        <div class="voice-name">iさん</div>
+      </div>
+      <div class="voice-media">
+        🎙️ インタビュー動画 / 音声（素材が揃い次第差し替え）
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SURVEY -->
+<section class="section-survey" id="survey">
+  <div class="survey-wrap">
+    <div class="section-eyebrow">アンケート</div>
+    <div class="survey-card">
+      <span class="survey-icon">📝</span>
+      <h2 class="survey-title">直感的に感じた気持ちで<br>お答えください</h2>
+      <p class="survey-desc">約1〜2分で完了します。いただいたご意見をサービス改善に活かします。</p>
+      <div class="survey-time">⏱ 約1〜2分</div>
+      <a href="https://forms.gle/Cq1f8rJAfV7mjsUQA" target="_blank" class="btn-survey">
+        アンケート回答はこちら
+        <span class="btn-survey-arrow">→</span>
+      </a>
+      <p class="survey-note">※ 外部サイト（Google フォーム）に移動します</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">cook<span>pad</span> moment</div>
+  <div class="footer-note">© 2025 Cookpad Inc.</div>
+</footer>
+
+<script>
+// ヘッドラインを③に自動コピー
+(function() {
+  const title = document.querySelector('.hero-title');
+  const target = document.getElementById('js-headline-copy');
+  if (title && target) {
+    target.textContent = title.innerText.replace(/\n/g, '').trim() + 'を実現できます';
+  }
+})();
+</script>
+</body>
+</html>
